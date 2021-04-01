@@ -31,8 +31,13 @@ exports.getOrder = (req, res) => {
   })
 }
 
+
+
+
+
+
 exports.createOrder = (req, res) => {
-    Order.exists({ email: req.body.email }, (err, result) => {
+  Order.exists({ _id: req.params.id }, (err, result) => {
     if(err) {
       return res.status(500).json(err)
     } else {
@@ -40,16 +45,14 @@ exports.createOrder = (req, res) => {
         return res.status(400).json({
           statusCode: 400,
           status: false,
-          message: 'A order by that with your email already exists, please update order instead'
+          message: 'A order with that id already exists, please update product instead'
         })
       }
       
       const newOrder = new Order({
 
-        firstName:   req.body.firstName,
-        lastName:    req.body.lastName,
-        email:       req.body.email,
-        items:       req.body.items,
+        user:        req.body.user,
+        products:    req.body.products,
         price:       req.body.price,
 
       })
@@ -59,14 +62,14 @@ exports.createOrder = (req, res) => {
           res.status(201).json({
             statusCode: 201,
             status: true,
-            message: 'Order created successfully'
+            message: 'order created successfully'
           })
         })
         .catch(() => {
           res.status(500).json({
             statusCode: 500,
             status: false,
-            message: 'Failed to create Order'
+            message: 'order could not be created'
           })
         })
     }

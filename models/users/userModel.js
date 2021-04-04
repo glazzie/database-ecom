@@ -66,54 +66,6 @@ exports.registerUser = (req, res) => {
 
 
 
-/*
-exports.loginUser = (req, res) => {
-  User.findOne({ email: req.body.email })
-    .then(user => {
-      if(user === null) {
-        return res.status(404).json({
-          statusCode: 404,
-          status: false,
-          message: 'Incorrect email or password'
-        })
-      }
-
-      try {
-        bcrypt.compare(req.body.password, user.passwordHash, (err, result) => {
-          if(err) {
-            return res.status(400).json(err)
-          }
-          else {
-  
-            if(result) {
-              return res.status(200).json({
-                statusCode: 200,
-                status: true,
-                message: 'Authentication was successful',
-                token: auth.generateToken(user)
-              })
-            }
-            return res.status(401).json({
-              statusCode: 401,
-              status: false,
-              message: 'Incorrect email or password'
-            })
-  
-          }
-        })
-      }
-      catch {
-        return res.status(500).json({
-          statusCode: 500,
-          status: false,
-          message: 'Unable to authenticate user. Please contact the system administrator'
-        })
-      }
-    })
-}
-*/
-
-
 exports.loginUser = (req, res, next) => {
     passport.authenticate("local", (err, user, info) => {
       if (err) {

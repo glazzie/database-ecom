@@ -6,10 +6,10 @@ const auth = require('../authentication/auth');
 router.get('/', productModel.getProducts);
 router.get('/:id', productModel.getProduct);
 
-router.post('/new', auth.verifyToken, productModel.createProduct);
+router.post('/new', productModel.createProduct);
 
-router.patch('/:id', auth.verifyToken, productModel.updateProduct);
+router.patch('/:id', productModel.updateProduct);
 
-router.delete('/:id', auth.verifyToken, productModel.deleteProduct);
+router.delete('/:id', productModel.deleteProduct);
 
 module.exports = router;
